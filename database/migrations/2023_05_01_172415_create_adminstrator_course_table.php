@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mosques', function (Blueprint $table) {
+        Schema::create('adminstrator_course', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('name',20);
-            $table->text('image')->nullable();
+            $table->foreignId('adminstrator_id')->constrained();
+            $table->foreignId('course_id')->constrained();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mosques');
+        Schema::dropIfExists('adminstrator_course');
     }
 };

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
@@ -24,9 +25,19 @@ class Course extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function mosuqe(): BelongsTo
+    public function mosque(): BelongsTo
     {
-        return $this->belongsTo(Mosuqe::class);
+        return $this->belongsTo(Mosque::class);
+    }
+
+    /**
+     * The adminstrators that belong to the Course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function adminstrators(): BelongsToMany
+    {
+        return $this->belongsToMany(Adminstrator::class);
     }
 
     /**
@@ -34,13 +45,10 @@ class Course extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class);
-    }
     
     public function groups(): HasMany
     {
         return $this->hasMany(Group::class);
     }
+
 }
