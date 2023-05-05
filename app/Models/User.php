@@ -23,6 +23,7 @@ class User extends Authenticatable
         'course_id',
         'email',
         'password',
+        'role'
     ];
 
     /**
