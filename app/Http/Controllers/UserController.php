@@ -9,31 +9,62 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
     public function register(Request $request){
 
         try{
-            $validated = request()->validate([
+            $credentials = request()->validate([
                 'name' => 'required|max:20,min:1',
                 'email' => 'required|email|max:50|unique:users',
-                'password' => 'required|confirmed|min:5'
+                'password' => 'required|confirmed|min:5|max:15'
             ]);
         }
         catch(ValidationException $e){
             return response()->json([
                 'message' => 'error',
-                'error: ' => $e->getMessage()
+                'error' => $e->getMessage()
             ],400);
         }
 
-        $validated['role'] = 'owner';
-        $validated['password'] = Hash::make($validated['password']);
-        $user = new User($validated);
+        $credentials['role'] = 'owner';
+        $credentials['password'] = Hash::make($credentials['password']);
+        $user = new User($credentials);
         $user->save();
 
         $token = $user->createToken('user')->plainTextToken;
         return response()->json([
-            'message' => 'registered succefully',
-            'token: ' => $token
+            'message' => 'registered successfully',
+            'token' => $token
+        ],200);
+    }
+
+    public function login(Request $request){
+
+        try{
+            $credentials = $request->validate([
+                'email' => 'required|exists:users|email',
+                'password' => 'required|min:5|max:15'
+            ]);
+        }
+        catch(ValidationException $e){
+            return response()->json([
+                'message' => 'error',
+                'error' => $e->getMessage()
+            ],400);
+        }
+
+        $user = User::where('email',$credentials['email'])->first();
+
+        if(!Hash::check($credentials['password'], $user['password'])){
+            return response()->json([
+                'message' => 'error',
+                'error' => 'wrong password'
+            ],401);
+        }
+
+        return response()->json([
+            'message' => 'logged in successfully',
+            'token' => $user->createToken('user')->plainTextToken
         ],200);
     }
 }
