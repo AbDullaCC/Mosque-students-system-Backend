@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MosqueController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,3 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function(){
+
+    Route::post('logout', [UserController::class, 'logout']);
+    Route::post('mosque/create', [MosqueController::class, 'create']);
+    
+});

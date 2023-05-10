@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
     public function register(Request $request){
 
         try{
-            $credentials = request()->validate([
+            $credentials = $request->validate([
                 'name' => 'required|max:20,min:1',
                 'email' => 'required|email|max:50|unique:users',
                 'password' => 'required|confirmed|min:5|max:15'
@@ -65,6 +66,15 @@ class UserController extends Controller
         return response()->json([
             'message' => 'logged in successfully',
             'token' => $user->createToken('user')->plainTextToken
+        ],200);
+    }
+
+    public function logout(Request $request){
+
+        auth()->user()->currentAccessToken()->delete();
+        
+        return response()->json([
+            'you logged out successfully.'
         ],200);
     }
 }
