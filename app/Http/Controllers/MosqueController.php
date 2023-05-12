@@ -10,13 +10,8 @@ class MosqueController extends Controller
 {
     public function create(Request $request){
         
-        //if this account isn't an owner
-        if(auth()->user()->role != 'owner'){
-            return response()->json([
-                'message' => 'error',
-                'error' => 'This account isn\'t an owner, you can\'t create a new mosque.'
-            ],403);
-        }
+        //is this account an owner?
+        $this->authorize('owner',Mosque::class);
 
         try{
             $info = $request->validate([
