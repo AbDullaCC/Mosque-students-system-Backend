@@ -68,7 +68,9 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'logged in successfully',
-            'token' => $user->createToken('user')->plainTextToken
+            'token' => $user->createToken('user')->plainTextToken,
+            'name' => $user->name,
+            'email' => $user->email
         ],200);
     }
 
