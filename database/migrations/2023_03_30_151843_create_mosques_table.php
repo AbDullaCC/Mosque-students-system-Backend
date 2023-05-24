@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mosques', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner_id')->constrained('users');
+            $table->foreignId('owner_id')->constrained('users','id');
             $table->string('name',20)->unique();
             $table->text('image')->nullable();
             $table->timestamps();

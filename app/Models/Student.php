@@ -16,7 +16,8 @@ class Student extends Model
         'group_id',
         'level',
         'points',
-        'birth'
+        'birth',
+        'mosque_id'
     ];
 
     public function user(): BelongsTo
@@ -37,5 +38,10 @@ class Student extends Model
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function mosque(): BelongsTo
+    {
+        return $this->belongsTo(Mosque::class);
     }
 }

@@ -12,7 +12,8 @@ class Teacher extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id'
+        'user_id',
+        'mosque_id'
     ];
 
     public function user(): BelongsTo
@@ -23,5 +24,10 @@ class Teacher extends Model
     public function groups(): HasMany
     {
         return $this->hasMany(Group::class);
+    }
+
+    public function mosque(): BelongsTo
+    {
+        return $this->belongsTo(Mosque::class);
     }
 }

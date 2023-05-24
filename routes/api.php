@@ -27,5 +27,6 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('mosque/create', [MosqueController::class, 'create']);
+    Route::post('mosque/createUser', [UserController::class, 'createUser']);
     
 });

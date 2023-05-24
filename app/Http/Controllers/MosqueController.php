@@ -30,7 +30,8 @@ class MosqueController extends Controller
         $mosque->save();
 
         return response()->json([
-            "The new mosque '$mosque->name' was created successfully."
+            'message' => 'The new mosque was created successfully.',
+            'mosque' => $mosque
         ],200);
 
     }

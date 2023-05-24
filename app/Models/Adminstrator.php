@@ -13,7 +13,8 @@ class Adminstrator extends Model
 
     protected $fillable = [
         'user_id',
-        'admin_type'
+        'admin_type',
+        'mosque_id'
     ];
 
     public function user(): BelongsTo
@@ -24,5 +25,10 @@ class Adminstrator extends Model
     public function courses(): BelongsToMany
     {
         return $this->BelongsToMany(Course::class);
+    }
+
+    public function mosque(): BelongsTo
+    {
+        return $this->belongsTo(Mosque::class);
     }
 }

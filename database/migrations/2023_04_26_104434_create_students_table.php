@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('group_id')->constrained();
+            $table->foreignId('mosque_id')->constrained();
             $table->integer('level')->nullable();
             $table->integer('points')->nullable();
             $table->date('birth');

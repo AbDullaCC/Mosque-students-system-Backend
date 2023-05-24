@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('adminstrators', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->enum('admin_type', ['Helper','Responsible']);
+            $table->foreignId('mosque_id')->constrained();
+            $table->enum('admin_type', ['helper','responsible']);
             $table->timestamps();
         });
     }
